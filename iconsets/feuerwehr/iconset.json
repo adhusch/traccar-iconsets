@@ -1,0 +1,91 @@
+{
+  "name": "Taktische Zeichen Feuerwehr (DV 102 / FwDV 100)",
+  "version": "2026-09-25",
+  "icons": [
+    {
+      "id": "lf10",
+      "file": "lf10.svg",
+      "name": "LF 10/6 (600 l)"
+    },
+    {
+      "id": "hlf10",
+      "file": "hlf10.svg",
+      "name": "HLF 10 (1000 l)"
+    },
+    {
+      "id": "tlf1625",
+      "file": "tlf1625.svg",
+      "name": "TLF 16/25 (2500 l)"
+    },
+    {
+      "id": "gtlf",
+      "file": "gtlf.svg",
+      "name": "GTLF 15000"
+    },
+    {
+      "id": "tsfw750",
+      "file": "tsfw750.svg",
+      "name": "TSF-W (750 l)"
+    },
+    {
+      "id": "tsfw500",
+      "file": "tsfw500.svg",
+      "name": "TSF-W (500 l)"
+    },
+    {
+      "id": "tsfw750gg",
+      "file": "tsfw750gg.svg",
+      "name": "TSF-W 4x4 (750 l)"
+    },
+    {
+      "id": "tsfw500gg",
+      "file": "tsfw500gg.svg",
+      "name": "TSF-W 4x4 (500 l)"
+    },
+    {
+      "id": "tsf",
+      "file": "tsf.svg",
+      "name": "TSF"
+    },
+    {
+      "id": "klf",
+      "file": "klf.svg",
+      "name": "KLF"
+    },
+    {
+      "id": "elw",
+      "file": "elw.svg",
+      "name": "ELW"
+    },
+    {
+      "id": "kdow",
+      "file": "kdow.svg",
+      "name": "KdoW"
+    },
+    {
+      "id": "mzf1",
+      "file": "mzf1.svg",
+      "name": "MZF 1"
+    },
+    {
+      "id": "mzf2",
+      "file": "mzf2.svg",
+      "name": "MZF 2"
+    },
+    {
+      "id": "utv",
+      "file": "utv.svg",
+      "name": "UTV (geländegängig)"
+    },
+    {
+      "id": "gruppenfuehrer",
+      "file": "gruppenfuehrer.svg",
+      "name": "Gruppenführer"
+    },
+    {
+      "id": "zugfuehrer",
+      "file": "zugfuehrer.svg",
+      "name": "Zugführer"
+    }
+  ]
+}

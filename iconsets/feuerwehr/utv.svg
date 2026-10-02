@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>UTV - Kleinfahrzeug gelaendegaengig</title>
+  <g transform="translate(-6.5,-63.2) scale(1.05)" fill="#000000">
+    <path d="M10,64 L10,192 L246,192 L246,64 Q128,100 10,64 Z"/>
+    <circle cx="40" cy="212" r="15"/>
+    <circle cx="128" cy="212" r="15"/>
+    <circle cx="216" cy="212" r="15"/>
+  </g>
+  <g fill="#000000"><g transform="translate(44.03,246.0) scale(0.04019,-0.04019)"><path transform="translate(0,0)" d="M169 1493H516V598Q516 413 570.5 333.5Q625 254 748 254Q872 254 926.5 333.5Q981 413 981 598V1493H1328V598Q1328 281 1184.5 126.0Q1041 -29 748 -29Q455 -29 312.0 126.0Q169 281 169 598Z"/><path transform="translate(1496,0)" d="M9 1493H1247V1202H802V0H455V1202H9Z"/><path transform="translate(2753,0)" d="M9 1493H357L714 391L1069 1493H1418L920 0H507Z"/></g></g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>ELW - Einsatzleitwagen</title>
+  <g transform="translate(-6.5,-63.2) scale(1.05)" fill="#000000">
+    <path d="M10,64 L10,192 L246,192 L246,64 Q128,100 10,64 Z"/>
+    <circle cx="40" cy="212" r="15"/>
+    <circle cx="216" cy="212" r="15"/>
+  </g>
+  <g fill="#000000"><g transform="translate(38.26,246.0) scale(0.04019,-0.04019)"><path transform="translate(0,0)" d="M169 1493H1104V1202H516V924H1069V633H516V291H1124V0H169Z"/><path transform="translate(1259,0)" d="M169 1493H516V291H1124V0H169Z"/><path transform="translate(2433,0)" d="M55 1493H387L619 408L850 1493H1184L1414 408L1646 1493H1976L1659 0H1259L1015 1135L774 0H374Z"/></g></g>
+</svg>

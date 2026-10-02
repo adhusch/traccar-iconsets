@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>Zugfuehrer - Fuehrungskraft Zug (DV 102 / FwDV 100)</title>
+  <!-- Grundzeichen Person (Raute), obere Spitze ausgemalt = Fuehrer,
+       3 Punkte = Groessenordnung Zug. -->
+  <g transform="translate(-69.6,-46.5) scale(1.544)" fill="#000000">
+    <path d="M64,128 L128,64 L192,128 L128,192 Z"
+          fill="none" stroke="#000000" stroke-width="13" stroke-linejoin="miter"/>
+    <path d="M128,64 L152,88 L104,88 Z"/>
+    <circle cx="100" cy="44" r="10"/>
+    <circle cx="128" cy="44" r="10"/>
+    <circle cx="156" cy="44" r="10"/>
+  </g>
+</svg>
