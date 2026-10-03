@@ -1,6 +1,6 @@
 {
   "name": "Taktische Zeichen Feuerwehr (DV 102 / FwDV 100)",
-  "version": "2026-09-25",
+  "version": "2026-10-03-0740",
   "icons": [
     {
       "id": "lf10",
@@ -33,16 +33,6 @@
       "name": "TSF-W (500 l)"
     },
     {
-      "id": "tsfw750gg",
-      "file": "tsfw750gg.svg",
-      "name": "TSF-W 4x4 (750 l)"
-    },
-    {
-      "id": "tsfw500gg",
-      "file": "tsfw500gg.svg",
-      "name": "TSF-W 4x4 (500 l)"
-    },
-    {
       "id": "tsf",
       "file": "tsf.svg",
       "name": "TSF"
@@ -71,6 +61,16 @@
       "id": "mzf2",
       "file": "mzf2.svg",
       "name": "MZF 2"
+    },
+    {
+      "id": "tsfw750gg",
+      "file": "tsfw750gg.svg",
+      "name": "TSF-W 4x4 (750 l)"
+    },
+    {
+      "id": "tsfw500gg",
+      "file": "tsfw500gg.svg",
+      "name": "TSF-W 4x4 (500 l)"
     },
     {
       "id": "utv",

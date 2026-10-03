@@ -14,7 +14,8 @@ iconsets/
     ├── iconset.json        Icons mit Beschriftung
     └── *.svg               taktische Zeichen nach DV 102 / FwDV 100
 tools/
-└── generate.py             erzeugt die Feuerwehr-Zeichen neu
+└── generate.py             erzeugt die Feuerwehr-Zeichen und pflegt iconset.json
+PROMPT.md                   Start-Prompt für einen neuen Chat, um Zeichen zu ergänzen
 ```
 
 ## Einbindung in Portainer
@@ -71,8 +72,20 @@ Ein weiteres Set ist ein neuer Ordner plus Eintrag unter `sets` in `index.json`.
 
 ### Neue Feuerwehr-Zeichen erzeugen
 
-`tools/generate.py` (Python mit `fonttools`) baut die Zeichen im einheitlichen
-Stil. Neue Fahrzeuge kommen als Zeile in die Liste `ICONS`.
+`tools/generate.py` (Python 3 mit `fonttools`, Schrift DejaVu Sans Condensed
+Bold) baut alle Zeichen im einheitlichen Stil und trägt sie in `iconset.json`
+ein – inklusive neuer `version`. Von Hand ergänzte Einträge bleiben erhalten.
+
+- Fahrzeug: Zeile in `VEHICLES` – id, Beschriftung, Räder (2/3), Löschen ja/nein, Name
+- Führungskraft: Zeile in `PERSONS` – id, Punkte (1 Trupp, 2 Gruppe, 3 Zug), Name
+
+```sh
+pip install fonttools
+python3 tools/generate.py            # alle
+python3 tools/generate.py dlk23      # nur dieses
+```
+
+Für einen neuen Chat liegt in `PROMPT.md` ein fertiger Start-Prompt.
 
 ## Quelle der Zeichen
 
