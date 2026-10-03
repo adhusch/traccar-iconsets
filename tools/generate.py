@@ -112,7 +112,7 @@ WHEELS = {2: (40, 216), 3: (40, 128, 216)}
 BODY_L, BODY_R, BODY_T, BODY_B = 10, 246, 64, 192
 BODY_MID = (BODY_T + BODY_B) / 2
 BRANCH_X = 164
-LOESCHEN_W = 20
+LOESCHEN_W = 15
 EXTEND = 1.15  # Diagonalen ueber die Ecke hinaus verlaengern
 
 
