@@ -10,11 +10,15 @@ damit keine Schriftart installiert sein muss.
 
 Zeichenarten (alle 256x256, Geometrie nach jonas-koeritz/Taktische-Zeichen):
 
-  Fahrzeug  oben Grundzeichen Fahrzeug, optional Fachdienstzeichen "Loeschen"
-            (ausgesparter Pfeil); 2 Raeder = strassengaengig, 3 = gelaendegaengig
-            unten eine Zeile Beschriftung (Literzahl oder Kurzbezeichnung)
-  Person    Raute als Ring, obere Spitze ausgemalt = Fuehrer,
-            Punkte darueber = Groessenordnung (1 Trupp, 2 Gruppe, 3 Zug)
+  Fahrzeug  oben eine Zeile Beschriftung (Literzahl oder Kurzbezeichnung),
+            darunter Grundzeichen Fahrzeug, optional Fachdienstzeichen "Loeschen"
+            (ausgesparte Linie von links, die sich zu den rechten Ecken
+            verzweigt = Verteiler); 2 Raeder = strassengaengig, 3 = gelaendegaengig;
+            optional Zusatzzeichen Gebirge (ausgesparter Bergspitz, angelehnt an
+            das militaerische Zeichen fuer Gebirgstruppen)
+  Person    Raute als Ring, obere Spitze ausgemalt = Fuehrer (ohne Spitze =
+            Truppmann), darueber Punkte/Striche = Groessenordnung
+            (1 Punkt Trupp, 2 Gruppe, 3 Zug, 1 Strich Verband, 2 Striche Wehr)
 
 Aufruf:   python3 tools/generate.py            alle Icons erzeugen
           python3 tools/generate.py lf10 elw   nur diese
@@ -49,34 +53,46 @@ FONT_CANDIDATES = [
 # Icon-Liste – hier neue Zeichen eintragen
 # ============================================================================
 
-# Fahrzeuge: (id, Beschriftung im Icon, Raeder 2|3, Loeschen-Zeichen, Name)
+# Fahrzeuge: (id, Beschriftung im Icon, Raeder 2|3, Loeschen-Zeichen, Gebirge, Name)
 #   id          Kategoriename, nur a-z 0-9 _ -, wird so am Geraet gespeichert
-#   Beschriftung  Literzahl bei Tankfahrzeugen, sonst Kurzbezeichnung (<= 5 Zeichen)
+#   Beschriftung  Literzahl bei Tankfahrzeugen, sonst Kurzbezeichnung (<= 5 Zeichen);
+#               steht ueber dem Zeichen
+#   Gebirge     Zusatzzeichen Gebirgstruppe (Absturzsicherung / Mittelgebirgsrettung)
 #   Name        Text im Auswahlfeld von Traccar
 VEHICLES = [
     # strassengaengig -> 2 Raeder
-    ("lf10",      "600",   2, True,  "LF 10/6 (600 l)"),
-    ("hlf10",     "1000",  2, True,  "HLF 10 (1000 l)"),
-    ("tlf1625",   "2500",  2, True,  "TLF 16/25 (2500 l)"),
-    ("gtlf",      "15000", 2, True,  "GTLF 15000"),
-    ("tsfw750",   "750",   2, True,  "TSF-W (750 l)"),
-    ("tsfw500",   "500",   2, True,  "TSF-W (500 l)"),
-    ("tsf",       "TSF",   2, True,  "TSF"),
-    ("klf",       "KLF",   2, True,  "KLF"),
-    ("elw",       "ELW",   2, False, "ELW"),
-    ("kdow",      "KdoW",  2, False, "KdoW"),
-    ("mzf1",      "MZF 1", 2, False, "MZF 1"),
-    ("mzf2",      "MZF 2", 2, False, "MZF 2"),
+    ("lf10",      "600",   2, True,  False, "LF 10/6 (600 l)"),
+    ("hlf10",     "1000",  2, True,  False, "HLF 10 (1000 l)"),
+    ("tlf1625",   "2500",  2, True,  False, "TLF 16/25 (2500 l)"),
+    ("gtlf",      "15000", 2, True,  False, "GTLF 15000"),
+    ("tsfw750",   "750",   2, True,  False, "TSF-W (750 l)"),
+    ("tsfw500",   "500",   2, True,  False, "TSF-W (500 l)"),
+    ("tsf",       "TSF",   2, True,  False, "TSF"),
+    ("klf",       "KLF",   2, True,  False, "KLF"),
+    ("elw",       "ELW",   2, False, False, "ELW"),
+    ("kdow",      "KdoW",  2, False, False, "KdoW"),
+    ("mzf1",      "MZF 1", 2, False, False, "MZF 1"),
+    ("mzf2",      "MZF 2", 2, False, False, "MZF 2"),
     # gelaendegaengig -> 3 Raeder
-    ("tsfw750gg", "750",   3, True,  "TSF-W 4x4 (750 l)"),
-    ("tsfw500gg", "500",   3, True,  "TSF-W 4x4 (500 l)"),
-    ("utv",       "UTV",   3, False, "UTV (geländegängig)"),
+    ("tsfw750gg", "750",   3, True,  False, "TSF-W 4x4 (750 l)"),
+    ("tsfw500gg", "500",   3, True,  False, "TSF-W 4x4 (500 l)"),
+    ("utv",       "UTV",   3, False, False, "UTV (geländegängig)"),
+    # Absturzsicherung / Mittelgebirgsrettung -> Zusatzzeichen Gebirge
+    ("tsfw500_abstusi",   "500", 2, True,  True, "TSF-W (500 l) AbStuSi"),
+    ("tsf_abstusi",       "TSF", 2, True,  True, "TSF AbStuSi"),
+    ("tsfw750gg_abstusi", "750", 3, True,  True, "TSF-W 4x4 (750 l) AbStuSi"),
+    ("utv_abstusi",       "UTV", 3, False, True, "UTV AbStuSi (geländegängig)"),
 ]
 
-# Fuehrungskraefte: (id, Punkte 1|2|3, Name)
+# Fuehrungskraefte: (id, Fuehrer-Spitze, Groessenordnung, Name)
+#   Groessenordnung: "" nichts, "." Punkt, "|" Strich (Reihenfolge = Anzeige)
 PERSONS = [
-    ("gruppenfuehrer", 2, "Gruppenführer"),
-    ("zugfuehrer",     3, "Zugführer"),
+    ("truppmann",       False, "",    "Truppmann"),
+    ("truppfuehrer",    True,  ".",   "Truppführer"),
+    ("gruppenfuehrer",  True,  "..",  "Gruppenführer"),
+    ("zugfuehrer",      True,  "...", "Zugführer"),
+    ("verbandsfuehrer", True,  "|",   "Verbandsführer"),
+    ("wehrleiter",      True,  "||",  "Wehrleiter"),
 ]
 
 # ============================================================================
@@ -87,26 +103,57 @@ PERSONS = [
 BODY = "M10,64 L10,192 L246,192 L246,64 Q128,100 10,64 Z"
 WHEEL_CY, WHEEL_R = 212, 15
 WHEELS = {2: (40, 216), 3: (40, 128, 216)}
-# Fachdienstzeichen "Loeschen" (Brandbekaempfung), als Aussparung
-LOESCHEN = "M30,128 L228,128 M146,128 L216,170 M146,128 L216,86"
+# Fachdienstzeichen "Loeschen" (Brandbekaempfung, Verteiler), als Aussparung:
+# Linie von der linken Kante, ab BRANCH_X teilt sie sich in drei Linien, die bis
+# in die rechte obere/untere Ecke und die rechte Kante reichen. Die Linien sind
+# ueber den Rand verlaengert, damit sie das Zeichen sauber durchtrennen.
+BODY_L, BODY_R, BODY_T, BODY_B = 10, 246, 64, 192
+BODY_MID = (BODY_T + BODY_B) / 2
+BRANCH_X = 112
 LOESCHEN_W = 20
-# Zeichenblock oben einpassen: y 64..227 -> 4..175, x 10..246 -> 4..251
-SIGN_TRANSFORM = "translate(-6.5,-63.2) scale(1.05)"
+EXTEND = 1.15  # Diagonalen ueber die Ecke hinaus verlaengern
 
-# Beschriftung unter dem Fahrzeug
-BASELINE = 246.0
+
+def _loeschen_path() -> str:
+    dx, dy = BODY_R - BRANCH_X, BODY_T - BODY_MID
+    x2, y_up = BRANCH_X + dx * EXTEND, BODY_MID + dy * EXTEND
+    y_dn = BODY_MID - dy * EXTEND
+    return (f"M{BODY_L - 10},{BODY_MID:g} L{BODY_R + 10},{BODY_MID:g} "
+            f"M{BRANCH_X},{BODY_MID:g} L{x2:.1f},{y_up:.1f} "
+            f"M{BRANCH_X},{BODY_MID:g} L{x2:.1f},{y_dn:.1f}")
+
+
+LOESCHEN = _loeschen_path()
+
+# Zusatzzeichen Gebirge (Gebirgstruppe): Bergspitz als Aussparung. Mit Loeschen-
+# Zeichen im Feld links unter der Linie, sonst mittig im Fahrzeug.
+GEBIRGE_W = 13
+GEBIRGE_HALF, GEBIRGE_H = 26, 26
+
+
+def _gebirge_path(cx: float, base_y: float) -> str:
+    return (f"M{cx - GEBIRGE_HALF},{base_y} L{cx},{base_y - GEBIRGE_H} "
+            f"L{cx + GEBIRGE_HALF},{base_y}")
+
+
+# Zeichenblock unter die Beschriftung setzen: y 64..227 -> 82..253, x 10..246 -> 4..251
+SIGN_TRANSFORM = "translate(-6.5,14.8) scale(1.05)"
+
+# Beschriftung ueber dem Fahrzeug
+BASELINE = 66.0
 CAP_HEIGHT = 60.0
 MAX_WIDTH = 244.0
 CENTER_X = 128.0
 
-# Grundzeichen Person: Raute + ausgemalte Spitze + Groessenordnungspunkte,
-# auf die volle Hoehe skaliert (y 34..192 -> 6..250)
+# Grundzeichen Person: Raute + ausgemalte Spitze + Groessenordnung (Punkte/Striche),
+# auf die volle Hoehe skaliert (y 24..192 -> 6..250)
 RAUTE = "M64,128 L128,64 L192,128 L128,192 Z"
 SPITZE = "M128,64 L152,88 L104,88 Z"
 RAUTE_W = 13
-DOTS = {1: (128,), 2: (100, 156), 3: (100, 128, 156)}
-DOT_CY, DOT_R = 44, 10
-PERSON_TRANSFORM = "translate(-69.6,-46.5) scale(1.544)"
+MARK_PITCH = 28           # Abstand der Punkte/Striche
+DOT_CY, DOT_R = 38, 10
+BAR_Y0, BAR_Y1, BAR_W = 24, 48, 12
+PERSON_TRANSFORM = "translate(-57.6,-28.8) scale(1.45)"
 
 
 def find_font(explicit: str | None) -> str:
@@ -153,14 +200,24 @@ def text_path(label: str, font_path: str) -> str:
     )
 
 
-def vehicle_svg(label: str, wheels: int, loeschen: bool, title: str, font: str) -> str:
-    mask, body_attr = "", ""
+def vehicle_svg(label: str, wheels: int, loeschen: bool, gebirge: bool,
+                title: str, font: str) -> str:
+    strokes = []
     if loeschen:
+        strokes.append(f'<path d="{LOESCHEN}" fill="none" stroke="#000000" '
+                       f'stroke-width="{LOESCHEN_W}"/>')
+    if gebirge:
+        # mit Loeschen-Zeichen: Feld links unterhalb der Linie, sonst mittig
+        cx, base = (58, 180) if loeschen else (128, 146)
+        strokes.append(f'<path d="{_gebirge_path(cx, base)}" fill="none" stroke="#000000" '
+                       f'stroke-width="{GEBIRGE_W}" stroke-linejoin="miter" '
+                       f'stroke-miterlimit="4"/>')
+    mask, body_attr = "", ""
+    if strokes:
         mask = f"""  <defs>
     <mask id="fd" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256">
       <rect x="0" y="0" width="256" height="256" fill="#ffffff"/>
-      <path d="{LOESCHEN}" fill="none" stroke="#000000"
-            stroke-width="{LOESCHEN_W}" stroke-linecap="round"/>
+      {chr(10).join("      " + t for t in strokes).strip()}
     </mask>
   </defs>
 """
@@ -172,26 +229,30 @@ def vehicle_svg(label: str, wheels: int, loeschen: bool, title: str, font: str) 
 
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
   <title>{title}</title>
-{mask}  <g transform="{SIGN_TRANSFORM}" fill="#000000">
+{mask}  <g fill="#000000">{text_path(label, font)}</g>
+  <g transform="{SIGN_TRANSFORM}" fill="#000000">
     <path d="{BODY}"{body_attr}/>
     {dots}
   </g>
-  <g fill="#000000">{text_path(label, font)}</g>
 </svg>
 """
 
 
-def person_svg(dots: int, title: str) -> str:
-    circles = "\n    ".join(
-        f'<circle cx="{cx}" cy="{DOT_CY}" r="{DOT_R}"/>' for cx in DOTS[dots]
+def person_svg(spitze: bool, marks: str, title: str) -> str:
+    """marks: "." = Punkt, "|" = Strich; zentriert ueber der Raute."""
+    xs = [128 + (i - (len(marks) - 1) / 2) * MARK_PITCH for i in range(len(marks))]
+    shapes = "\n    ".join(
+        f'<circle cx="{x:g}" cy="{DOT_CY}" r="{DOT_R}"/>' if m == "."
+        else f'<rect x="{x - BAR_W / 2:g}" y="{BAR_Y0}" width="{BAR_W}" height="{BAR_Y1 - BAR_Y0}"/>'
+        for x, m in zip(xs, marks)
     )
+    tip = f'\n    <path d="{SPITZE}"/>' if spitze else ""
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
   <title>{title}</title>
   <g transform="{PERSON_TRANSFORM}" fill="#000000">
     <path d="{RAUTE}"
-          fill="none" stroke="#000000" stroke-width="{RAUTE_W}" stroke-linejoin="miter"/>
-    <path d="{SPITZE}"/>
-    {circles}
+          fill="none" stroke="#000000" stroke-width="{RAUTE_W}" stroke-linejoin="miter"/>{tip}
+    {shapes}
   </g>
 </svg>
 """
@@ -246,18 +307,19 @@ def main() -> None:
     font = find_font(args.font)
     OUT.mkdir(parents=True, exist_ok=True)
 
-    for icon_id, label, wheels, loeschen, name in VEHICLES:
+    for icon_id, label, wheels, loeschen, gebirge, name in VEHICLES:
         if icon_id in wanted:
-            svg = vehicle_svg(label, wheels, loeschen, ascii_title(name), font)
+            svg = vehicle_svg(label, wheels, loeschen, gebirge, ascii_title(name), font)
             (OUT / f"{icon_id}.svg").write_text(svg)
-            print(f"  {icon_id}.svg  [{label}]  {wheels} Raeder{'  +Loeschen' if loeschen else ''}")
+            extras = ("  +Loeschen" if loeschen else "") + ("  +Gebirge" if gebirge else "")
+            print(f"  {icon_id}.svg  [{label}]  {wheels} Raeder{extras}")
 
-    for icon_id, dots, name in PERSONS:
+    for icon_id, spitze, marks, name in PERSONS:
         if icon_id in wanted:
-            (OUT / f"{icon_id}.svg").write_text(person_svg(dots, ascii_title(name)))
-            print(f"  {icon_id}.svg  Raute, {dots} Punkt(e)")
+            (OUT / f"{icon_id}.svg").write_text(person_svg(spitze, marks, ascii_title(name)))
+            print(f"  {icon_id}.svg  Raute{' + Spitze' if spitze else ''}  [{marks}]")
 
-    update_manifest([(v[0], v[4]) for v in VEHICLES] + [(p[0], p[2]) for p in PERSONS])
+    update_manifest([(v[0], v[5]) for v in VEHICLES] + [(p[0], p[3]) for p in PERSONS])
     print(f"\n  {MANIFEST.relative_to(ROOT)} aktualisiert")
 
 

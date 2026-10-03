@@ -1,6 +1,6 @@
 {
   "name": "Taktische Zeichen Feuerwehr (DV 102 / FwDV 100)",
-  "version": "2026-10-03-0740",
+  "version": "2026-10-03-0754",
   "icons": [
     {
       "id": "lf10",
@@ -78,6 +78,36 @@
       "name": "UTV (geländegängig)"
     },
     {
+      "id": "tsfw500_abstusi",
+      "file": "tsfw500_abstusi.svg",
+      "name": "TSF-W (500 l) AbStuSi"
+    },
+    {
+      "id": "tsf_abstusi",
+      "file": "tsf_abstusi.svg",
+      "name": "TSF AbStuSi"
+    },
+    {
+      "id": "tsfw750gg_abstusi",
+      "file": "tsfw750gg_abstusi.svg",
+      "name": "TSF-W 4x4 (750 l) AbStuSi"
+    },
+    {
+      "id": "utv_abstusi",
+      "file": "utv_abstusi.svg",
+      "name": "UTV AbStuSi (geländegängig)"
+    },
+    {
+      "id": "truppmann",
+      "file": "truppmann.svg",
+      "name": "Truppmann"
+    },
+    {
+      "id": "truppfuehrer",
+      "file": "truppfuehrer.svg",
+      "name": "Truppführer"
+    },
+    {
       "id": "gruppenfuehrer",
       "file": "gruppenfuehrer.svg",
       "name": "Gruppenführer"
@@ -86,6 +116,16 @@
       "id": "zugfuehrer",
       "file": "zugfuehrer.svg",
       "name": "Zugführer"
+    },
+    {
+      "id": "verbandsfuehrer",
+      "file": "verbandsfuehrer.svg",
+      "name": "Verbandsführer"
+    },
+    {
+      "id": "wehrleiter",
+      "file": "wehrleiter.svg",
+      "name": "Wehrleiter"
     }
   ]
 }

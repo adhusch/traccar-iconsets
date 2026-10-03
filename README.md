@@ -76,8 +76,11 @@ Ein weiteres Set ist ein neuer Ordner plus Eintrag unter `sets` in `index.json`.
 Bold) baut alle Zeichen im einheitlichen Stil und trägt sie in `iconset.json`
 ein – inklusive neuer `version`. Von Hand ergänzte Einträge bleiben erhalten.
 
-- Fahrzeug: Zeile in `VEHICLES` – id, Beschriftung, Räder (2/3), Löschen ja/nein, Name
-- Führungskraft: Zeile in `PERSONS` – id, Punkte (1 Trupp, 2 Gruppe, 3 Zug), Name
+- Fahrzeug: Zeile in `VEHICLES` – id, Beschriftung (steht über dem Zeichen), Räder (2/3),
+  Löschen ja/nein, Gebirge ja/nein (Zusatzzeichen Gebirgstruppe, z. B. für
+  Absturzsicherung), Name
+- Führungskraft: Zeile in `PERSONS` – id, ausgemalte Spitze ja/nein, Größenordnung
+  (`.` Punkt, `|` Strich: 1 Trupp, 2 Gruppe, 3 Zug, 1 Strich Verband, 2 Striche Wehr), Name
 
 ```sh
 pip install fonttools
