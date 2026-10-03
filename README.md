@@ -80,7 +80,7 @@ ein – inklusive neuer `version`. Von Hand ergänzte Einträge bleiben erhalten
   Löschen ja/nein, Gebirge ja/nein (Zusatzzeichen Gebirgstruppe, z. B. für
   Absturzsicherung), Name
 - Führungskraft: Zeile in `PERSONS` – id, ausgemalte Spitze ja/nein, Größenordnung
-  (`.` Punkt, `|` Strich: 1 Trupp, 2 Gruppe, 3 Zug, 1 Strich Verband, 2 Striche Wehr), Name
+  (`.` Punkt, `|` Strich: 1 Trupp, 2 Gruppe, 3 Zug, 1 Strich Verband), Kürzel in der Raute (z. B. `WL`), Name
 
 ```sh
 pip install fonttools

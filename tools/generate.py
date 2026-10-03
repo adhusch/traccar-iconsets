@@ -14,11 +14,12 @@ Zeichenarten (alle 256x256, Geometrie nach jonas-koeritz/Taktische-Zeichen):
             darunter Grundzeichen Fahrzeug, optional Fachdienstzeichen "Loeschen"
             (ausgesparte Linie von links, die sich zu den rechten Ecken
             verzweigt = Verteiler); 2 Raeder = strassengaengig, 3 = gelaendegaengig;
-            optional Zusatzzeichen Gebirge (ausgesparter Bergspitz, angelehnt an
+            optional Zusatzzeichen Gebirge (ausgefuelltes Dreieck, angelehnt an
             das militaerische Zeichen fuer Gebirgstruppen)
   Person    Raute als Ring, obere Spitze ausgemalt = Fuehrer (ohne Spitze =
             Truppmann), darueber Punkte/Striche = Groessenordnung
-            (1 Punkt Trupp, 2 Gruppe, 3 Zug, 1 Strich Verband, 2 Striche Wehr)
+            (1 Punkt Trupp, 2 Gruppe, 3 Zug, 1 Strich Verband);
+            Wehrleiter = Verbandsfuehrer mit Kuerzel "WL" in der Raute
 
 Aufruf:   python3 tools/generate.py            alle Icons erzeugen
           python3 tools/generate.py lf10 elw   nur diese
@@ -84,15 +85,16 @@ VEHICLES = [
     ("utv_abstusi",       "UTV", 3, False, True, "UTV AbStuSi (geländegängig)"),
 ]
 
-# Fuehrungskraefte: (id, Fuehrer-Spitze, Groessenordnung, Name)
+# Fuehrungskraefte: (id, Fuehrer-Spitze, Groessenordnung, Text in der Raute, Name)
 #   Groessenordnung: "" nichts, "." Punkt, "|" Strich (Reihenfolge = Anzeige)
+#   Text in der Raute: "" nichts, sonst kurzes Kuerzel (z. B. "WL")
 PERSONS = [
-    ("truppmann",       False, "",    "Truppmann"),
-    ("truppfuehrer",    True,  ".",   "Truppführer"),
-    ("gruppenfuehrer",  True,  "..",  "Gruppenführer"),
-    ("zugfuehrer",      True,  "...", "Zugführer"),
-    ("verbandsfuehrer", True,  "|",   "Verbandsführer"),
-    ("wehrleiter",      True,  "||",  "Wehrleiter"),
+    ("truppmann",       False, "",    "",   "Truppmann"),
+    ("truppfuehrer",    True,  ".",   "",   "Truppführer"),
+    ("gruppenfuehrer",  True,  "..",  "",   "Gruppenführer"),
+    ("zugfuehrer",      True,  "...", "",   "Zugführer"),
+    ("verbandsfuehrer", True,  "|",   "",   "Verbandsführer"),
+    ("wehrleiter",      True,  "|",   "WL", "Wehrleiter"),
 ]
 
 # ============================================================================
@@ -109,7 +111,7 @@ WHEELS = {2: (40, 216), 3: (40, 128, 216)}
 # ueber den Rand verlaengert, damit sie das Zeichen sauber durchtrennen.
 BODY_L, BODY_R, BODY_T, BODY_B = 10, 246, 64, 192
 BODY_MID = (BODY_T + BODY_B) / 2
-BRANCH_X = 112
+BRANCH_X = 164
 LOESCHEN_W = 20
 EXTEND = 1.15  # Diagonalen ueber die Ecke hinaus verlaengern
 
@@ -125,15 +127,17 @@ def _loeschen_path() -> str:
 
 LOESCHEN = _loeschen_path()
 
-# Zusatzzeichen Gebirge (Gebirgstruppe): Bergspitz als Aussparung. Mit Loeschen-
-# Zeichen im Feld links unter der Linie, sonst mittig im Fahrzeug.
-GEBIRGE_W = 13
-GEBIRGE_HALF, GEBIRGE_H = 26, 26
+# Zusatzzeichen Gebirge (Gebirgstruppe): ausgefuelltes Dreieck als Aussparung, in
+# allen Fahrzeugen mittig. Bei Loeschen liegt es unter der Linie links der
+# Verzweigung, beim Fahrzeug ohne Loeschen-Zeichen an derselben Stelle.
+GEBIRGE_CX, GEBIRGE_BASE = 128, 184
+GEBIRGE_HALF, GEBIRGE_H = 26, 40
 
 
-def _gebirge_path(cx: float, base_y: float) -> str:
-    return (f"M{cx - GEBIRGE_HALF},{base_y} L{cx},{base_y - GEBIRGE_H} "
-            f"L{cx + GEBIRGE_HALF},{base_y}")
+def _gebirge_path() -> str:
+    cx, base = GEBIRGE_CX, GEBIRGE_BASE
+    return (f"M{cx - GEBIRGE_HALF},{base} L{cx},{base - GEBIRGE_H} "
+            f"L{cx + GEBIRGE_HALF},{base} Z")
 
 
 # Zeichenblock unter die Beschriftung setzen: y 64..227 -> 82..253, x 10..246 -> 4..251
@@ -153,7 +157,10 @@ RAUTE_W = 13
 MARK_PITCH = 28           # Abstand der Punkte/Striche
 DOT_CY, DOT_R = 38, 10
 BAR_Y0, BAR_Y1, BAR_W = 24, 48, 12
-PERSON_TRANSFORM = "translate(-57.6,-28.8) scale(1.45)"
+PERSON_SCALE, PERSON_TX, PERSON_TY = 1.45, -57.6, -28.8
+PERSON_TRANSFORM = f"translate({PERSON_TX},{PERSON_TY}) scale({PERSON_SCALE})"
+# Kuerzel in der Raute (Icon-Koordinaten): Breite + Hoehe <= ca. 150
+TEXT_CAP, TEXT_MAX_W = 52.0, 96.0
 
 
 def find_font(explicit: str | None) -> str:
@@ -166,7 +173,9 @@ def find_font(explicit: str | None) -> str:
     )
 
 
-def text_path(label: str, font_path: str) -> str:
+def text_path(label: str, font_path: str, baseline: float = BASELINE,
+              cap_height: float = CAP_HEIGHT, max_width: float = MAX_WIDTH,
+              center_x: float = CENTER_X) -> str:
     """Setzt den Text und gibt ihn als SVG-Pfad in Icon-Koordinaten zurueck."""
     font = TTFont(font_path)
     glyph_set = font.getGlyphSet()
@@ -187,14 +196,14 @@ def text_path(label: str, font_path: str) -> str:
             parts.append(f'<path transform="translate({pen_x},0)" d="{d}"/>')
         pen_x += hmtx[name][0]
 
-    scale = CAP_HEIGHT / cap
-    if pen_x * scale > MAX_WIDTH:  # zu breit -> proportional verkleinern
-        scale = MAX_WIDTH / pen_x
-    tx = CENTER_X - (pen_x * scale) / 2
+    scale = cap_height / cap
+    if pen_x * scale > max_width:  # zu breit -> proportional verkleinern
+        scale = max_width / pen_x
+    tx = center_x - (pen_x * scale) / 2
 
     # y spiegeln: Schrift-y zeigt nach oben, SVG-y nach unten
     return (
-        f'<g transform="translate({tx:.2f},{BASELINE}) scale({scale:.5f},{-scale:.5f})">'
+        f'<g transform="translate({tx:.2f},{baseline}) scale({scale:.5f},{-scale:.5f})">'
         + "".join(parts)
         + "</g>"
     )
@@ -207,11 +216,7 @@ def vehicle_svg(label: str, wheels: int, loeschen: bool, gebirge: bool,
         strokes.append(f'<path d="{LOESCHEN}" fill="none" stroke="#000000" '
                        f'stroke-width="{LOESCHEN_W}"/>')
     if gebirge:
-        # mit Loeschen-Zeichen: Feld links unterhalb der Linie, sonst mittig
-        cx, base = (58, 180) if loeschen else (128, 146)
-        strokes.append(f'<path d="{_gebirge_path(cx, base)}" fill="none" stroke="#000000" '
-                       f'stroke-width="{GEBIRGE_W}" stroke-linejoin="miter" '
-                       f'stroke-miterlimit="4"/>')
+        strokes.append(f'<path d="{_gebirge_path()}" fill="#000000"/>')
     mask, body_attr = "", ""
     if strokes:
         mask = f"""  <defs>
@@ -238,7 +243,7 @@ def vehicle_svg(label: str, wheels: int, loeschen: bool, gebirge: bool,
 """
 
 
-def person_svg(spitze: bool, marks: str, title: str) -> str:
+def person_svg(spitze: bool, marks: str, text: str, title: str, font: str) -> str:
     """marks: "." = Punkt, "|" = Strich; zentriert ueber der Raute."""
     xs = [128 + (i - (len(marks) - 1) / 2) * MARK_PITCH for i in range(len(marks))]
     shapes = "\n    ".join(
@@ -247,13 +252,21 @@ def person_svg(spitze: bool, marks: str, title: str) -> str:
         for x, m in zip(xs, marks)
     )
     tip = f'\n    <path d="{SPITZE}"/>' if spitze else ""
+    # Kuerzel mittig in der Raute (Raute-Mitte 128,128 in Zeichenkoordinaten)
+    label = ""
+    if text:
+        cy = 128 * PERSON_SCALE + PERSON_TY
+        label = ("\n  <g fill=\"#000000\">"
+                 + text_path(text, font, baseline=cy + TEXT_CAP / 2, cap_height=TEXT_CAP,
+                             max_width=TEXT_MAX_W, center_x=128.0)
+                 + "</g>")
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
   <title>{title}</title>
   <g transform="{PERSON_TRANSFORM}" fill="#000000">
     <path d="{RAUTE}"
           fill="none" stroke="#000000" stroke-width="{RAUTE_W}" stroke-linejoin="miter"/>{tip}
     {shapes}
-  </g>
+  </g>{label}
 </svg>
 """
 
@@ -314,12 +327,12 @@ def main() -> None:
             extras = ("  +Loeschen" if loeschen else "") + ("  +Gebirge" if gebirge else "")
             print(f"  {icon_id}.svg  [{label}]  {wheels} Raeder{extras}")
 
-    for icon_id, spitze, marks, name in PERSONS:
+    for icon_id, spitze, marks, text, name in PERSONS:
         if icon_id in wanted:
-            (OUT / f"{icon_id}.svg").write_text(person_svg(spitze, marks, ascii_title(name)))
-            print(f"  {icon_id}.svg  Raute{' + Spitze' if spitze else ''}  [{marks}]")
+            (OUT / f"{icon_id}.svg").write_text(person_svg(spitze, marks, text, ascii_title(name), font))
+            print(f"  {icon_id}.svg  Raute{' + Spitze' if spitze else ''}  [{marks}] {text}")
 
-    update_manifest([(v[0], v[5]) for v in VEHICLES] + [(p[0], p[3]) for p in PERSONS])
+    update_manifest([(v[0], v[5]) for v in VEHICLES] + [(p[0], p[4]) for p in PERSONS])
     print(f"\n  {MANIFEST.relative_to(ROOT)} aktualisiert")
 
 
