@@ -3,7 +3,7 @@
   <defs>
     <mask id="fd" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256">
       <rect x="0" y="0" width="256" height="256" fill="#ffffff"/>
-      <path d="M0,128 L256,128 M164,128 L258.3,54.4 M164,128 L258.3,201.6" fill="none" stroke="#000000" stroke-width="15"/>
+      <path d="M0,128 L256,128 M164,128 L258.3,54.4 M164,128 L258.3,201.6" fill="none" stroke="#000000" stroke-width="12"/>
       <path d="M102,184 L128,144 L154,184 Z" fill="#000000"/>
     </mask>
   </defs>
