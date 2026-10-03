@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
-  <title>TSF</title>
+  <title>TSF AbStuSi</title>
   <defs>
     <mask id="fd" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256">
       <rect x="0" y="0" width="256" height="256" fill="#ffffff"/>
       <path d="M0,128 L256,128 M164,128 L258.3,54.4 M164,128 L258.3,201.6" fill="none" stroke="#000000" stroke-width="12"/>
+      <path d="M102,184 L128,144 L154,184 Z" fill="#000000"/>
     </mask>
   </defs>
   <g fill="#000000"><g transform="translate(50.78,66.0) scale(0.04019,-0.04019)"><path transform="translate(0,0)" d="M9 1493H1247V1202H802V0H455V1202H9Z"/><path transform="translate(1257,0)" d="M1104 1446V1130Q994 1185 888.5 1213.0Q783 1241 689 1241Q565 1241 505.5 1203.0Q446 1165 446 1085Q446 1025 486.0 991.5Q526 958 632 934L779 901Q1004 851 1098.0 749.0Q1192 647 1192 459Q1192 212 1060.5 91.5Q929 -29 658 -29Q530 -29 401.5 -2.0Q273 25 144 78V403Q273 327 393.0 288.5Q513 250 625 250Q738 250 798.5 292.0Q859 334 859 412Q859 482 818.0 520.0Q777 558 654 588L520 621Q319 669 225.5 774.0Q132 879 132 1057Q132 1280 262.0 1400.0Q392 1520 634 1520Q745 1520 862.0 1501.5Q979 1483 1104 1446Z"/><path transform="translate(2584,0)" d="M169 1493H1104V1202H516V924H1069V633H516V0H169Z"/></g></g>

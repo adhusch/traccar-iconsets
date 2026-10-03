@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>Wehrleiter</title>
+  <g transform="translate(-57.6,-28.8) scale(1.45)" fill="#000000">
+    <path d="M64,128 L128,64 L192,128 L128,192 Z"
+          fill="none" stroke="#000000" stroke-width="13" stroke-linejoin="miter"/>
+    <path d="M128,64 L152,88 L104,88 Z"/>
+    <rect x="122" y="24" width="12" height="24"/>
+  </g>
+  <g fill="#000000"><g transform="translate(80.00,182.79999999999998) scale(0.02993,-0.02993)"><path transform="translate(0,0)" d="M55 1493H387L619 408L850 1493H1184L1414 408L1646 1493H1976L1659 0H1259L1015 1135L774 0H374Z"/><path transform="translate(2033,0)" d="M169 1493H516V291H1124V0H169Z"/></g></g>
+</svg>

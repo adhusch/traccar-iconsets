@@ -33,11 +33,16 @@ Zeichen für meine Feuerwehr.
   - Fahrzeug: Grundzeichen mit durchhängender Oberkante.
     **2 Räder = straßengängig, 3 Räder = geländegängig.** Nicht raten – im
     Zweifel nachfragen, welche Fahrzeuge Allrad haben.
-  - Fachdienstzeichen „Löschen" (ausgesparter Pfeil) für alle
-    Löschfahrzeuge, auch ohne Tank (TSF, KLF).
-  - Führungskraft: Raute als Ring, obere Spitze ausgemalt, Punkte darüber
-    für die Größenordnung (1 Trupp, 2 Gruppe, 3 Zug).
-- Unter dem Fahrzeug steht genau eine Zeile: bei Tankfahrzeugen die
+  - Fachdienstzeichen „Löschen" (ausgesparter Verteiler: Linie von links, die
+    sich in drei Linien bis in die rechten Ecken und die rechte Kante teilt)
+    für alle Löschfahrzeuge, auch ohne Tank (TSF, KLF).
+  - Zusatzzeichen Gebirge (ausgefülltes Dreieck, nach dem militärischen
+    Zeichen für Gebirgstruppen) für Fahrzeuge der Absturzsicherung
+    (`AbStuSi`, Name mit „AbStuSi", id mit Suffix `_abstusi`).
+  - Führungskraft: Raute als Ring, obere Spitze ausgemalt (Truppmann ohne
+    Spitze), Punkte/Striche darüber für die Größenordnung (1 Trupp,
+    2 Gruppe, 3 Zug, 1 Strich Verband; Wehrleiter = Verbandsführer mit „WL“ in der Raute).
+- Über dem Fahrzeug steht genau eine Zeile: bei Tankfahrzeugen die
   Literzahl, sonst die Kurzbezeichnung. Höchstens etwa 5 Zeichen, sonst wird
   sie im Marker unlesbar.
 - `id` nur aus Kleinbuchstaben, Ziffern, `_`, `-` – sie wird so am Gerät
@@ -56,10 +61,10 @@ Zeichen für meine Feuerwehr.
 
 **Neue Zeichen:**
 
-| Fahrzeug / Funktion | Tank (Liter) | geländegängig? | Beschriftung im Auswahlfeld |
-|---|---|---|---|
-| z. B. DLK 23/12 | – | nein | DLK 23/12 |
-| | | | |
+| Fahrzeug / Funktion | Tank (Liter) | geländegängig? | Gebirge (AbStuSi)? | Beschriftung im Auswahlfeld |
+|---|---|---|---|---|
+| z. B. DLK 23/12 | – | nein | nein | DLK 23/12 |
+| | | | | |
 
 ---
 

@@ -3,14 +3,13 @@
   <defs>
     <mask id="fd" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256">
       <rect x="0" y="0" width="256" height="256" fill="#ffffff"/>
-      <path d="M30,128 L228,128 M146,128 L216,170 M146,128 L216,86" fill="none" stroke="#000000"
-            stroke-width="20" stroke-linecap="round"/>
+      <path d="M0,128 L256,128 M164,128 L258.3,54.4 M164,128 L258.3,201.6" fill="none" stroke="#000000" stroke-width="12"/>
     </mask>
   </defs>
-  <g transform="translate(-6.5,-63.2) scale(1.05)" fill="#000000">
+  <g fill="#000000"><g transform="translate(50.42,66.0) scale(0.04019,-0.04019)"><path transform="translate(0,0)" d="M169 1493H516V948L1015 1493H1418L770 786L1484 0H1050L516 588V0H169Z"/><path transform="translate(1428,0)" d="M169 1493H516V291H1124V0H169Z"/><path transform="translate(2602,0)" d="M169 1493H1104V1202H516V924H1069V633H516V0H169Z"/></g></g>
+  <g transform="translate(-6.5,14.8) scale(1.05)" fill="#000000">
     <path d="M10,64 L10,192 L246,192 L246,64 Q128,100 10,64 Z" mask="url(#fd)"/>
     <circle cx="40" cy="212" r="15"/>
     <circle cx="216" cy="212" r="15"/>
   </g>
-  <g fill="#000000"><g transform="translate(50.42,246.0) scale(0.04019,-0.04019)"><path transform="translate(0,0)" d="M169 1493H516V948L1015 1493H1418L770 786L1484 0H1050L516 588V0H169Z"/><path transform="translate(1428,0)" d="M169 1493H516V291H1124V0H169Z"/><path transform="translate(2602,0)" d="M169 1493H1104V1202H516V924H1069V633H516V0H169Z"/></g></g>
 </svg>
